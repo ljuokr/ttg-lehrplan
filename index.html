@@ -374,6 +374,38 @@
     outline:2px solid #7fa7cc;
     outline-offset:1px;
   }
+  .info-btn{
+    border:1px solid transparent;
+    background:transparent;
+    color:var(--muted,#5f748b);
+    border-radius:4px;
+    padding:2px 6px;
+    font-size:13px;
+    line-height:1.2;
+    cursor:pointer;
+    opacity:.5;
+    margin-left:6px;
+    transition:opacity .15s, background .15s;
+  }
+  .info-btn:hover{ opacity:1; background:#eef3f8; }
+  .info-btn:focus-visible{ opacity:1; outline:2px solid #7fa7cc; outline-offset:1px; }
+  #infoPopover{
+    position:fixed;
+    top:46px;
+    right:12px;
+    z-index:400;
+    background:var(--panel,#fff);
+    border:1px solid var(--line,#d7dfeb);
+    border-radius:8px;
+    box-shadow:var(--shadow,0 12px 28px rgba(14,30,48,.12));
+    padding:10px 12px;
+    font-size:12px;
+    color:var(--txt,#223346);
+    max-width:280px;
+  }
+  #infoPopover[hidden]{ display:none; }
+  #infoPopover .ip-row{ margin:3px 0; }
+  #infoPopover a{ color:var(--cool,#4b7cab); }
 
   .excel-download-btn{
     border:1px solid #c8d6e6;
@@ -1170,7 +1202,14 @@
     <input type="radio" name="cycleRadio" id="cycleRadio3" class="cycle-radio" value="3">
     <label for="cycleRadio3" class="cycle-radio-label" data-cycle="3">Z3</label>
   </div>
+  <button type="button" class="info-btn" id="infoBtn" aria-haspopup="dialog" aria-expanded="false" title="Info">ⓘ</button>
 </header>
+
+<div id="infoPopover" role="dialog" aria-label="Über dieses Tool" hidden>
+  <div class="ip-row">Umsetzung: <strong>Lukas Jordi</strong></div>
+  <div class="ip-row">Kontakt: <a href="mailto:lukasjordi@gmail.com">lukasjordi@gmail.com</a></div>
+  <div class="ip-row">Quelle: <a href="https://lu.lehrplan.ch" target="_blank" rel="noopener noreferrer">Lehrplan 21, Kanton Luzern</a></div>
+</div>
 
 <button class="close-btn" id="closeBtn">✕</button>
 
@@ -6056,6 +6095,29 @@ window.addEventListener('message', (event) => {
 closeBtn.addEventListener('click', () => resetToOverview(false));
 
 initEmojiToggle();
+
+// Info-Popover „Gebaut von / Kontakt"
+(function(){
+  var btn = document.getElementById('infoBtn');
+  var pop = document.getElementById('infoPopover');
+  if (!btn || !pop) return;
+  function setOpen(open){
+    pop.hidden = !open;
+    btn.setAttribute('aria-expanded', String(open));
+  }
+  btn.addEventListener('click', function(e){
+    e.stopPropagation();
+    setOpen(pop.hidden);
+  });
+  document.addEventListener('click', function(e){
+    if (pop.hidden) return;
+    if (btn.contains(e.target) || pop.contains(e.target)) return;
+    setOpen(false);
+  });
+  document.addEventListener('keydown', function(e){
+    if (e.key === 'Escape' && !pop.hidden) setOpen(false);
+  });
+})();
 // Tooltip for terms (left panel)
 document.addEventListener('mouseover', function(e) {
   var el = e.target.closest('.kb-header a, .ttg2-header a, .ha-title a, .ttg2-design-row a, .ttg2-col-title a, .ha-items a, .ttg2-design-items a');
