@@ -137,6 +137,7 @@
   }
 
   .right-panel {
+    position: relative;
     width: 0;
     transition: width 0.35s ease;
     overflow: hidden;
@@ -304,22 +305,26 @@
 
   .close-btn {
     display: none;
-    position: fixed;
-    top: 14px;
-    right: 14px;
+    position: absolute;
+    top: 10px;
+    right: 10px;
     left: auto;
-    z-index: 120;
-    background: #294463;
-    color: #fff;
-    border: none;
-    border-radius: 0;
-    padding: 5px 12px;
-    font-size: 11px;
-    letter-spacing: .02em;
+    z-index: 210;
+    width: 28px;
+    height: 28px;
+    padding: 0;
+    background: rgba(255,255,255,.94);
+    color: var(--muted,#5f748b);
+    border: 1px solid var(--line,#d7dfeb);
+    border-radius: 7px;
+    font-size: 15px;
+    line-height: 26px;
+    text-align: center;
     cursor: pointer;
-    box-shadow: 0 6px 18px rgba(17,37,56,.24);
+    box-shadow: 0 4px 12px rgba(17,37,56,.16);
+    transition: background .15s, color .15s, border-color .15s;
   }
-  .close-btn:hover { background: #1f3550; }
+  .close-btn:hover { background: #fff; color: var(--txt,#223346); border-color: #96b3cf; }
   body.split .close-btn { display: block; }
 
   .ha-items a.active, .ttg2-col a.active, .ttg2-col-title a.active,
@@ -1213,8 +1218,6 @@
   <div class="ip-row ip-cite">Deutschschweizer Erziehungsdirektoren-Konferenz (D-EDK), 2015. Lehrplan 21 - Broschüre Gestalten, S. 13. (<a href="https://lu.lehrplan.ch" target="_blank" rel="noopener noreferrer">lehrplan.ch</a>)</div>
 </div>
 
-<button class="close-btn" id="closeBtn">✕</button>
-
 <div class="split-container">
 <div class="left-panel" id="leftPanel">
 
@@ -1446,6 +1449,7 @@
 
 <div class="right-panel" id="rightPanel">
   <iframe id="detailFrame" src="about:blank"></iframe>
+  <button class="close-btn" id="closeBtn" type="button" title="Schliessen" aria-label="Schliessen">✕</button>
 </div>
 
 </div><!-- split-container -->
