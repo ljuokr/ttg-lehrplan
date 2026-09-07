@@ -1201,12 +1201,12 @@
   :focus-visible{outline:3px solid #265f91;outline-offset:3px}
   .skip-link{position:absolute;left:8px;top:-100px;background:white;padding:10px;z-index:300}
   .skip-link:focus{top:8px}
-  .explorer-search{margin-bottom:18px;padding:12px;background:#f2f6fa;border:1px solid var(--line);border-radius:6px}
-  .explorer-search label{display:block;font-weight:600;margin-bottom:6px}
+  .explorer-search{position:relative;flex:0 1 240px;min-width:160px}
   .search-controls{display:flex;gap:8px}
-  .search-controls input{min-width:0;flex:1;font:inherit;padding:9px;border:1px solid #8295a8;border-radius:4px}
+  .search-controls input{width:100%;min-width:0;font:inherit;font-size:13px;height:32px;padding:5px 9px;border:1px solid #8295a8;border-radius:4px;background:white}
+  #searchFeedback{position:absolute;top:calc(100% + 6px);left:0;width:min(460px,calc(100vw - 32px));padding:10px;background:white;border:1px solid var(--line);border-radius:6px;box-shadow:var(--shadow);z-index:300}
   .search-controls button,.detail-status button{font:inherit;min-height:44px;padding:8px 12px;border:1px solid #8295a8;background:white;border-radius:4px;cursor:pointer;color:var(--txt)}
-  #searchHelp,#searchStatus{font-size:13px;margin-top:8px;color:#42586d}
+  #searchStatus{font-size:13px;color:#42586d}
   #searchStatus:empty{display:none}
   #searchResults{list-style:none;margin-top:8px;max-height:45vh;overflow-y:auto}
   #searchResults a{display:block;padding:10px;color:#214b70;border-top:1px solid var(--line);text-decoration:none;overflow-wrap:anywhere}
@@ -1229,7 +1229,6 @@
   .info-btn{opacity:1}
   .cycle-card-block .ccb-qv .ref,.cycle-card-block .ccb-qv-inline .ref,.cycle-card-block .ccb-qv-footer .ref{font-size:12px;min-height:28px;padding:4px}
   body.split .left-panel{flex-basis:48%;width:48%;min-width:0;font-size:11px}
-  body.split .explorer-search{display:none}
   body.split .didaktik-flex-row{flex-direction:column}
   body.split .top-row{flex-direction:row;gap:0}
   body.split .ttg2-bottom{grid-template-columns:repeat(4,minmax(0,1fr))}
@@ -1263,9 +1262,9 @@
     .left-panel{padding:12px}
     .ttg2-bottom,body.cycle-mode .ttg2-bottom{grid-template-columns:1fr}
     .ha-items a,.ttg2-design-items a,.ttg2-col li>a{display:inline-block;padding:7px 0;min-height:44px}
-    .explorer-search{padding:10px}
+    .explorer-search{order:5;flex:1 0 100%}
     .search-controls{flex-wrap:wrap}
-    .search-controls input{flex-basis:100%;font-size:16px}
+    .search-controls input{font-size:16px}
     .didaktik-table{table-layout:fixed;width:100%}
     .didaktik-table th,.didaktik-table td{overflow-wrap:anywhere;padding:8px}
     .cycle-card-block .ccb-row{flex-wrap:wrap}
@@ -1292,6 +1291,10 @@
 
 <header class="app-header">
   <h1 class="app-title">TTG Explorer 3000</h1>
+  <section class="explorer-search" aria-label="Lehrplan durchsuchen">
+    <div class="search-controls"><input id="explorerSearch" type="search" aria-label="Begriff oder Kompetenzcode suchen" placeholder="Begriff oder Kompetenzcode" autocomplete="off" aria-controls="searchResults"></div>
+    <div id="searchFeedback" hidden><p id="searchStatus" role="status" aria-live="polite"></p><ul id="searchResults" hidden></ul></div>
+  </section>
   <a class="skip-link" href="#leftPanel">Zum Inhalt</a>
   <button type="button" class="home-btn" id="homeBtn" aria-label="Zurück zur Übersicht" title="Zurück zur Übersicht">🏠</button>
   <div class="header-actions">
@@ -1319,14 +1322,6 @@
 
 <main class="split-container" aria-label="Lehrplan Textiles und Technisches Gestalten">
 <div class="left-panel" id="leftPanel" tabindex="-1" aria-label="Lehrplanübersicht">
-
-<section class="explorer-search" aria-label="Lehrplan durchsuchen">
-  <label for="explorerSearch">Begriff oder Kompetenzcode suchen</label>
-  <div class="search-controls"><input id="explorerSearch" type="search" placeholder="z. B. Nähen, Nachhaltigkeit, TTG.2.B.1" autocomplete="off" aria-controls="searchResults" aria-describedby="searchHelp"><button type="button" id="clearSearch">Zurücksetzen</button></div>
-  <p id="searchHelp">Bereich anklicken oder suchen. Die Zyklusansicht zeigt die zugehörigen Kompetenzstufen. Mit 🏠 gelangst du zur Übersicht.</p>
-  <p id="searchStatus" role="status" aria-live="polite"></p>
-  <ul id="searchResults" hidden></ul>
-</section>
 
 <div class="title-row">
   <h2 class="title">Struktur Textiles und Technisches Gestalten</h2>
@@ -6262,6 +6257,7 @@ initEmojiToggle();
   const input = document.getElementById('explorerSearch');
   const results = document.getElementById('searchResults');
   const status = document.getElementById('searchStatus');
+  const feedback = document.getElementById('searchFeedback');
   let request = 0;
   const normalize = (value) => String(value).normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().replace(/ß/g, 'ss').trim();
   async function search() {
@@ -6269,6 +6265,7 @@ initEmojiToggle();
     const query = normalize(input.value);
     results.replaceChildren();
     results.hidden = !query;
+    feedback.hidden = !query;
     status.textContent = '';
     if (!query) return;
     const data = await ensureCycleDataLoaded();
@@ -6287,7 +6284,7 @@ initEmojiToggle();
       const description = document.createElement('small');
       description.textContent = item.statements.join(' ') + ' · Zyklus ' + item.cycles.join(', ');
       a.appendChild(description);
-      a.addEventListener('click', e => { e.preventDefault(); openTarget(item.targetId); });
+      a.addEventListener('click', e => { e.preventDefault(); input.focus(); feedback.hidden = true; openTarget(item.targetId); });
       li.appendChild(a);
       results.appendChild(li);
     });
@@ -6297,7 +6294,11 @@ initEmojiToggle();
     if (e.key === 'ArrowDown' && results.firstElementChild) { e.preventDefault(); results.querySelector('a').focus(); }
     if (e.key === 'Enter' && results.querySelector('a')) { e.preventDefault(); results.querySelector('a').click(); }
   });
-  document.getElementById('clearSearch').addEventListener('click', () => { input.value = ''; search(); input.focus(); });
+  input.addEventListener('focus', () => { if (input.value.trim()) feedback.hidden = false; });
+  document.addEventListener('click', e => { if (!e.target.closest('.explorer-search')) feedback.hidden = true; });
+  document.querySelector('.explorer-search').addEventListener('keydown', e => {
+    if (e.key === 'Escape' && !feedback.hidden) { e.stopPropagation(); feedback.hidden = true; input.focus(); feedback.hidden = true; }
+  });
   document.querySelector('.excel-download-btn').setAttribute('aria-label','Lehrplan als Excel herunterladen');
   document.querySelector('.cycle-controls').setAttribute('role','radiogroup');
   document.querySelector('.cycle-controls').setAttribute('aria-label','Zyklusansicht');
