@@ -1228,14 +1228,19 @@
   .cycle-card-block .ccb-letter .ltr,.cycle-card-block .ccb-letter .fcode{font-size:12px;white-space:normal;overflow-wrap:anywhere}
   .info-btn{opacity:1}
   .cycle-card-block .ccb-qv .ref,.cycle-card-block .ccb-qv-inline .ref,.cycle-card-block .ccb-qv-footer .ref{font-size:12px;min-height:28px;padding:4px}
-  body.split .left-panel{flex-basis:40%;width:40%;min-width:0;font-size:15px}
-  body.split .top-row{flex-direction:column;gap:12px}
-  body.split .ttg2-bottom{grid-template-columns:1fr 1fr}
+  body.split .left-panel{flex-basis:48%;width:48%;min-width:0;font-size:11px}
+  body.split .explorer-search{display:none}
   body.split .didaktik-flex-row{flex-direction:column}
-  body.split .triangle-area{flex-basis:auto;padding:8px}
-  body.split .triangle-wrapper{height:auto;width:100%}
-  body.split .triangle-svg{display:none}
-  body.split .triangle-label{position:static;transform:none;width:auto;min-height:44px;padding:10px;border:1px solid #a0705a;font-size:15px}
+  body.split .top-row{flex-direction:row;gap:0}
+  body.split .ttg2-bottom{grid-template-columns:repeat(4,minmax(0,1fr))}
+  body.split .kb-header,body.split .ttg2-header{font-size:12px}
+  body.split .ha-title,body.split .ttg2-design-row,body.split .ttg2-col-title{font-size:11px}
+  body.split .ha-items,body.split .ttg2-design-items,body.split .ttg2-col{font-size:11px;line-height:1.5}
+  body.split .k-tag{font-size:9px!important}
+  body.split .triangle-area{flex:0 0 88px;padding:0}
+  body.split .triangle-wrapper{width:80px;height:70px}
+  body.split .triangle-svg{display:block}
+  body.split .triangle-label{font-size:9px;width:64px;min-height:0;padding:0}
   @media(max-width:900px){
     .app-header .cycle-label{display:none}
     .top-row{flex-direction:column;gap:12px}
@@ -1245,8 +1250,9 @@
     .triangle-label,body.cycle-mode .triangle-label{position:static;transform:none;width:100%;min-height:44px;padding:10px;border:1px solid #a0705a;background:#fff8f2;font-size:15px;line-height:1.5}
     .triangle-label::after{content:' · Didaktische Hinweise'}
     .ttg2-bottom,body.cycle-mode .ttg2-bottom{grid-template-columns:1fr 1fr}
-    body.split .left-panel{display:none}
-    body.split .right-panel{width:100%;flex:1}
+    body.split .split-container{flex-direction:column}
+    body.split .left-panel{display:block;width:100%;height:43%;flex:0 0 43%;overflow:auto}
+    body.split .right-panel{width:100%;flex:1;min-height:0}
   }
   @media(max-width:640px){
     .app-header{padding:8px;gap:6px}
@@ -1273,6 +1279,13 @@
     .cycle-under-title > .ccb-desc .satz{padding:6px}
   }
   @media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;animation:none!important;transition:none!important}}
+  /* Keep the curriculum map intact while reading a selected competency. */
+  body.split .triangle-label{position:absolute;top:25%;left:50%;transform:translateX(-50%);border:none;background:none;line-height:1.1}
+  body.split .triangle-label::after{content:none}
+  @media(max-width:900px){
+    body.split .top-row,body.split .box-ttg2{min-width:580px}
+    body.split .ha-items a,body.split .ttg2-design-items a,body.split .ttg2-col li>a{padding:0;min-height:0}
+  }
 </style>
 </head>
 <body>
