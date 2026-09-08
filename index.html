@@ -23,7 +23,7 @@
   * { margin: 0; padding: 0; box-sizing: border-box; }
 
   body {
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: "Avenir Next", "Trebuchet MS", "Gill Sans", "Segoe UI", sans-serif;
     color: var(--txt);
     font-size: 12px;
     height: 100vh;
@@ -1156,16 +1156,13 @@
   .dh-flash::before{content:'';position:absolute;inset:0;border-radius:inherit;background:rgba(60,130,200,.3);pointer-events:none;z-index:10;animation:dh-flash-pulse 1.8s ease-in-out 1}
   @keyframes dh-flash-pulse{0%{opacity:0}50%{opacity:1}100%{opacity:0}}
 
-  /* Responsive, accessible explorer — kept inline for standalone use. */
-  body{display:flex;flex-direction:column;height:100vh;height:100dvh;font-size:15px;line-height:1.5}
-  .app-header{flex:none;gap:8px}
+  /* Compact search and detail loading feedback; original visual design above. */
+  body{display:flex;flex-direction:column;height:100vh;height:100dvh}
+  .app-header{flex:none}
   .split-container{flex:1;min-height:0;height:auto}
   body:not(.split) .right-panel{display:none}
-  .app-header .app-title{font-size:18px}
-  .home-btn,.excel-download-btn,.info-btn,.close-btn,.cycle-radio-label{min-width:44px;min-height:44px;display:inline-flex;align-items:center;justify-content:center;font-size:14px}
-  .app-header .header-actions{gap:6px}
+  .title{font-weight:400}
   .close-btn{z-index:5}
-  :focus-visible{outline:3px solid #265f91;outline-offset:3px}
   .skip-link{position:absolute;left:8px;top:-100px;background:white;padding:10px;z-index:300}
   .skip-link:focus{top:8px}
   .explorer-search{position:relative;flex:0 1 240px;min-width:160px}
@@ -1181,86 +1178,9 @@
   #searchResults small{display:block;color:#43566a;font-size:13px}
   .detail-status{position:absolute;inset:0;z-index:3;background:#fff;padding:76px 20px 20px}
   .detail-status[hidden]{display:none}
-  .title,body.cycle-mode .title{font-size:17px;font-weight:600}
-  .kb-header,.ttg2-header,body.split .kb-header,body.split .ttg2-header,body.cycle-mode .kb-header,body.cycle-mode .ttg2-header{font-size:16px;line-height:1.4}
-  .ha-title,.ttg2-design-row,.ttg2-col-title,body.split .ha-title,body.split .ttg2-design-row,body.split .ttg2-col-title,body.cycle-mode .ha-title,body.cycle-mode .ttg2-design-row,body.cycle-mode .ttg2-col-title{font-size:14px;line-height:1.5}
-  .ha-items,.ttg2-design-items,.ttg2-col,body.split .ha-items,body.split .ttg2-design-items,body.split .ttg2-col,body.cycle-mode .ha-items,body.cycle-mode .ttg2-design-items,body.cycle-mode .ttg2-col{font-size:15px;line-height:1.6}
-  .k-tag,body.split .k-tag,body.cycle-mode .k-tag{font-size:12px!important;color:#4b6073;display:inline-block;margin-left:5px}
-  .didaktik-caption,body.split .didaktik-caption{font-size:16px}
-  .didaktik-table,.didaktik-table th,.didaktik-table td,.methoden-col,.methoden-col-head,body.split .didaktik-table,body.split .didaktik-table th,body.split .didaktik-table td,body.split .methoden-col,body.split .methoden-col-head{font-size:14px;line-height:1.6}
-  .methoden-entry-title,.methoden-entry-desc{font-size:14px}
-  .cycle-card-block .ccb-text{font-size:15px;line-height:1.6}
-  .cycle-under-title > .ccb-desc .nr,.cycle-under-title > .ccb-desc .satz{font-size:14px;line-height:1.5}
-  .cycle-card-block .ccb-head .kb,.cycle-card-block .ccb-head .titel,.cycle-card-block .ccb-ha,.cycle-card-block .ccb-ha .code,.cycle-card-block .ccb-ha .name,.cycle-card-block .ccb-desc .nr,.cycle-card-block .ccb-desc .satz,.cycle-card-block .ccb-thema{font-size:14px;line-height:1.5}
-  .cycle-card-block .ccb-letter .ltr,.cycle-card-block .ccb-letter .fcode{font-size:12px;white-space:normal;overflow-wrap:anywhere}
-  .info-btn{opacity:1}
-  .cycle-card-block .ccb-qv .ref,.cycle-card-block .ccb-qv-inline .ref,.cycle-card-block .ccb-qv-footer .ref{font-size:12px;min-height:28px;padding:4px}
-  body.split .left-panel{flex-basis:48%;width:48%;min-width:0;font-size:11px}
-  body.split .didaktik-flex-row{flex-direction:column}
-  body.split .top-row{flex-direction:row;gap:0}
-  body.split .ttg2-bottom{grid-template-columns:repeat(4,minmax(0,1fr))}
-  body.split .kb-header,body.split .ttg2-header{font-size:12px}
-  body.split .ha-title,body.split .ttg2-design-row,body.split .ttg2-col-title{font-size:11px}
-  body.split .ha-items,body.split .ttg2-design-items,body.split .ttg2-col{font-size:11px;line-height:1.5}
-  body.split .k-tag{font-size:9px!important}
-  body.split .triangle-area{flex:0 0 88px;padding:0}
-  body.split .triangle-wrapper{width:80px;height:70px}
-  body.split .triangle-svg{display:block}
-  body.split .triangle-label{font-size:9px;width:64px;min-height:0;padding:0}
-  @media(max-width:900px){
-    .app-header .cycle-label{display:none}
-    .top-row{flex-direction:column;gap:12px}
-    .triangle-area,body.cycle-mode .triangle-area{flex-basis:auto;padding:4px 0}
-    .triangle-wrapper,body.cycle-mode .triangle-wrapper{height:auto;width:100%}
-    .triangle-svg{display:none}
-    .triangle-label,body.cycle-mode .triangle-label{position:static;transform:none;width:100%;min-height:44px;padding:10px;border:1px solid #a0705a;background:#fff8f2;font-size:15px;line-height:1.5}
-    .triangle-label::after{content:' · Didaktische Hinweise'}
-    .ttg2-bottom,body.cycle-mode .ttg2-bottom{grid-template-columns:1fr 1fr}
-    body.split .split-container{flex-direction:column}
-    body.split .left-panel{display:block;width:100%;height:43%;flex:0 0 43%;overflow:auto}
-    body.split .right-panel{width:100%;flex:1;min-height:0}
-  }
   @media(max-width:640px){
-    .app-header{padding:8px;gap:6px}
-    .app-header .app-title{font-size:16px}
-    .app-header .cycle-controls{order:3;flex:1 0 calc(100% - 60px);gap:6px;flex-wrap:nowrap}
-    .cycle-radio-label{white-space:nowrap}
-    .app-header .info-btn{order:4}
-    .left-panel{padding:12px}
-    .ttg2-bottom,body.cycle-mode .ttg2-bottom{grid-template-columns:1fr}
-    .ha-items a,.ttg2-design-items a,.ttg2-col li>a{display:inline-block;padding:7px 0;min-height:44px}
     .explorer-search{order:5;flex:1 0 100%}
-    .search-controls{flex-wrap:wrap}
     .search-controls input{font-size:16px}
-    .didaktik-table{table-layout:fixed;width:100%}
-    .didaktik-table th,.didaktik-table td{overflow-wrap:anywhere;padding:8px}
-    .cycle-card-block .ccb-row{flex-wrap:wrap}
-    .cycle-card-block .ccb-bar{width:24px}
-    .cycle-card-block .ccb-letter{width:calc(100% - 24px);padding:5px 8px;flex-direction:row;gap:8px}
-    .cycle-card-block .ccb-text{flex-basis:100%;padding:8px}
-    .cycle-card-block .ccb-thema{padding:6px 10px}
-    .cycle-card-block .ccb-desc .nr{width:28px;padding-left:8px}
-    .cycle-card-block .ccb-desc .satz{padding:6px}
-    .cycle-under-title > .ccb-desc .nr{width:28px;padding-left:8px}
-    .cycle-under-title > .ccb-desc .satz{padding:6px}
-  }
-  @media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;animation:none!important;transition:none!important}}
-  /* Keep the curriculum map intact while reading a selected competency. */
-  /* Restrained type scale: regular text, semibold section titles, quiet codes. */
-  button,input{font-family:inherit}
-  .app-header .app-title{font-weight:600}
-  .kb-header,.ttg2-header,body.split .kb-header,body.split .ttg2-header,body.cycle-mode .kb-header,body.cycle-mode .ttg2-header{font-weight:600}
-  .ha-title,.ttg2-col-title,.ttg2-design-row{font-weight:400}
-  .k-tag,body.split .k-tag,body.cycle-mode .k-tag{font-weight:400!important;font-size:11px!important;color:#536575}
-  body.split .kb-header,body.split .ttg2-header,body.split .ha-title,body.split .ttg2-col-title,body.split .ttg2-design-row,body.split .ha-items,body.split .ttg2-design-items,body.split .ttg2-col{font-size:12px;line-height:1.45}
-  body.split .title,body.split .didaktik-caption{font-size:13px;font-weight:400}
-  body.split .didaktik-table,body.split .didaktik-table th,body.split .didaktik-table td,body.split .methoden-col,body.split .methoden-col-head,body.split .methoden-entry-title,body.split .methoden-entry-desc{font-size:12px;line-height:1.45}
-  .cycle-under-title > .ccb-desc .satz,.cycle-card-block .ccb-desc .satz{font-weight:400}
-  body.split .triangle-label{position:absolute;top:25%;left:50%;transform:translateX(-50%);border:none;background:none;line-height:1.1}
-  body.split .triangle-label::after{content:none}
-  @media(max-width:900px){
-    body.split .top-row,body.split .box-ttg2{min-width:580px}
-    body.split .ha-items a,body.split .ttg2-design-items a,body.split .ttg2-col li>a{padding:0;min-height:0}
   }
 </style>
 </head>
@@ -1280,11 +1200,11 @@
   <div class="cycle-controls">
     <span class="cycle-label">Zyklusansicht:</span>
     <input type="radio" name="cycleRadio" id="cycleRadio1" class="cycle-radio" value="1">
-    <label for="cycleRadio1" class="cycle-radio-label" data-cycle="1">Zyklus 1</label>
+    <label for="cycleRadio1" class="cycle-radio-label" data-cycle="1">Z1</label>
     <input type="radio" name="cycleRadio" id="cycleRadio2" class="cycle-radio" value="2">
-    <label for="cycleRadio2" class="cycle-radio-label" data-cycle="2">Zyklus 2</label>
+    <label for="cycleRadio2" class="cycle-radio-label" data-cycle="2">Z2</label>
     <input type="radio" name="cycleRadio" id="cycleRadio3" class="cycle-radio" value="3">
-    <label for="cycleRadio3" class="cycle-radio-label" data-cycle="3">Zyklus 3</label>
+    <label for="cycleRadio3" class="cycle-radio-label" data-cycle="3">Z3</label>
   </div>
   <button type="button" class="info-btn" id="infoBtn" aria-label="Informationen über dieses Tool" aria-haspopup="dialog" aria-expanded="false" title="Info">ⓘ</button>
 </header>
@@ -1300,7 +1220,7 @@
 <div class="left-panel" id="leftPanel" tabindex="-1" aria-label="Lehrplanübersicht">
 
 <div class="title-row">
-  <h2 class="title">Struktur Textiles und Technisches Gestalten</h2>
+  <h2 class="title">Tabelle 4: Struktur Textiles und Technisches Gestalten</h2>
 </div>
 
 <div class="cycle-view" id="cycleView"></div>
@@ -2223,7 +2143,7 @@ window.LU_CROSSREF_DATA = {
 *{margin:0;padding:0;box-sizing:border-box}
 
 body{
-  font-family:Arial,Helvetica,sans-serif;
+  font-family:"Avenir Next","Trebuchet MS","Gill Sans","Segoe UI",sans-serif;
   color:var(--txt);
   background:
     radial-gradient(1200px 380px at 12% -10%,rgba(190,106,75,.14),transparent 60%),
@@ -2558,26 +2478,6 @@ body{
 
 @media (prefers-reduced-motion:reduce){
   *,*::before,*::after{animation-duration:.01ms !important;animation-iteration-count:1 !important;transition-duration:.01ms !important}
-}
-/* Readable detail cards at both desktop and phone widths. */
-body{font-size:14px;line-height:1.5}
-.page{padding-top:54px}
-.lookup-bar{padding-right:60px;flex-wrap:wrap}
-.lookup-bar input{font-size:16px;min-height:44px}
-.c-head .kb,.c-head .titel,.c-ha,.c-ha .code,.c-ha .name,.c-desc .nr,.c-desc .satz,.a-thema,.a-code-satz,.text{font-size:14px;line-height:1.5}
-.c-head .kb,.c-head .titel,.a-thema{font-weight:600}
-.c-ha .code,.c-ha .name,.c-desc .nr,.c-desc .satz,.a-code-satz,.letter .ltr,.letter .fcode{font-weight:400}
-.chev{font-weight:400;color:inherit}
-.a-thema a{font-size:12px!important;font-family:inherit}
-.c-head .dl,.kb-link,.letter .ltr,.letter .fcode,.a-code-box,.qv .lbl,.qv .ref,.qv-ref{font-size:12px;color:#425a70}
-.qv .ref,.qv-ref,.kb-link,.c-head .dl{min-height:28px;padding:4px 6px}
-.stmt-cp{font-size:14px;display:inline-block;padding:6px;min-width:32px}
-:focus-visible{outline:3px solid #265f91;outline-offset:2px}
-@media(max-width:640px){
-  .c-head .kb,.c-ha .code,.c-desc .nr{width:74px;padding-left:12px}
-  .a-thema{padding-left:12px}
-  .text{min-width:0;overflow-wrap:anywhere}
-  .qv .ref,.qv-ref,.kb-link,.c-head .dl{min-height:36px;padding:6px}
 }
 </style>
 </head>
@@ -6251,14 +6151,14 @@ function buildDidaktischeHinweiseHTML() {
 '<head><meta charset="UTF-8"><title>Didaktische Hinweise TTG<\/title>\n' +
 '<style>\n' +
 '*{margin:0;padding:0;box-sizing:border-box}\n' +
-'body{font-family:Arial,Helvetica,sans-serif;color:#2c3e50;line-height:1.5;padding:24px 28px;background:#fafcfe}\n' +
+'body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;color:#2c3e50;line-height:1.6;padding:24px 28px;background:#fafcfe}\n' +
 'h1{font-size:20px;color:#2c3e50;margin-bottom:18px;border-bottom:2px solid #a0705a;padding-bottom:8px}\n' +
 'h2{font-size:15px;color:#35506a;margin:20px 0 8px;padding:6px 0;border-bottom:1px solid #e2e8f0}\n' +
-'p{font-size:14px;margin-bottom:10px}\n' +
-'ul{margin:6px 0 10px 20px;font-size:14px}\n' +
+'p{font-size:12.5px;margin-bottom:10px}\n' +
+'ul{margin:6px 0 10px 20px;font-size:12.5px}\n' +
 'li{margin-bottom:4px}\n' +
 '.section{margin-bottom:20px}\n' +
-'.grafik-link{display:inline-block;margin-top:4px;padding:10px 0;min-height:44px;font-size:14px;color:#315f86;text-decoration:underline;cursor:pointer;transition:color .15s}\n' +
+'.grafik-link{display:inline-block;margin-top:4px;font-size:11px;color:#6a98bf;text-decoration:none;cursor:pointer;transition:color .15s}\n' +
 '.grafik-link:hover{color:#2f618d;text-decoration:underline}\n' +
 '.grafik-link::before{content:"\\2190 ";font-size:13px}\n' +
 '.dh-flash{position:relative}\n' +
