@@ -1216,6 +1216,8 @@
   <div class="kanton-controls">
     <label class="cycle-label" for="kantonSelect">Kanton:</label>
     <select id="kantonSelect" class="kanton-select" aria-describedby="kantonHinweis">
+      <option value="v-fe">Deutschschweizer Vorlage</option>
+      <optgroup label="Kantonale Fassung">
       <option value="ag">Aargau</option>
       <option value="ar">Appenzell Ausserrhoden</option>
       <option value="ai">Appenzell Innerrhoden</option>
@@ -1234,6 +1236,7 @@
       <option value="vs">Wallis</option>
       <option value="zg">Zug</option>
       <option value="zh">Zürich</option>
+      </optgroup>
     </select>
   </div>
   <div class="cycle-controls">
@@ -1253,7 +1256,7 @@
   <div class="ip-row">Kontakt: <a href="mailto:lukasjordi@gmail.com">lukasjordi@gmail.com</a></div>
   <div class="ip-row">Quelle: eigene Darstellung in Anlehnung an D-EDK, 2015, S. 13</div>
   <div class="ip-row ip-cite">Deutschschweizer Erziehungsdirektoren-Konferenz (D-EDK), 2015. Lehrplan 21 - Broschüre Gestalten, S. 13. (<a id="ipLehrplanLink" href="https://lu.lehrplan.ch" target="_blank" rel="noopener noreferrer">lehrplan.ch</a>)</div>
-  <div class="ip-row ip-cite" id="kantonHinweis">Der Fachbereichslehrplan TTG ist in den 18 wählbaren Kantonen wortgleich (geprüft am 10.11.2026). Die Auswahl ändert nur, auf welche kantonale Fassung die Links zeigen. Nicht enthalten sind GR, SO und BL, deren Lehrplan abweicht.</div>
+  <div class="ip-row ip-cite" id="kantonHinweis">Der Fachbereichslehrplan TTG ist in den 18 wählbaren Kantonen wortgleich mit der Deutschschweizer Vorlage (alle 21 Kantone geprüft am 10.11.2026). Die Auswahl ändert nur, wohin die Links zeigen, nie den Inhalt. Die Vorlage ist die gemeinsame Quelle, aber in keinem Kanton in Kraft: zum Zitieren besser die eigene Kantonsfassung wählen. Nicht enthalten sind GR, SO und BL, deren Lehrplan abweicht.</div>
 </div>
 
 <main class="split-container" aria-label="Lehrplan Textiles und Technisches Gestalten">
@@ -5167,9 +5170,33 @@ const DETAIL_HTML = (document.getElementById('detailHtmlTpl')?.innerHTML) || '';
    hier ausschliesslich der Link-Host getauscht, nie der Inhalt. GR, SO und BL
    fehlen bewusst: GR hat zwei eigene Beispiele im Kompetenztext, SO nennt das
    Fach „Technisches Gestalten" mit dem Kürzel TG, BL kürzt Mathematik als „M" ab.
+   Zusätzlich wählbar ist die Deutschschweizer Vorlage auf v-fe.lehrplan.ch, auf die
+   lehrplan21.ch mit „Zur Vorlage des Lehrplans 21" verweist. Sie ist die gemeinsame
+   Quelle aller Kantonsfassungen, aber in keinem Kanton in Kraft. Die Schwester v-ef
+   unterscheidet sich nur in der Reihenfolge der Fremdsprachen, im TTG sind beide gleich.
    Die Codes hinter index.php und lehrplan_printout.php sind in allen Kantonen
    gleich, das wurde stichprobenweise gegen BG, NMG, NT und TTG geprüft. */
-const LP_KANTONE = [{kt:'ag',name:'Aargau'}, {kt:'ar',name:'Appenzell Ausserrhoden'}, {kt:'ai',name:'Appenzell Innerrhoden'}, {kt:'bs',name:'Basel-Stadt'}, {kt:'be',name:'Bern'}, {kt:'fr',name:'Freiburg'}, {kt:'gl',name:'Glarus'}, {kt:'lu',name:'Luzern'}, {kt:'nw',name:'Nidwalden'}, {kt:'ow',name:'Obwalden'}, {kt:'sh',name:'Schaffhausen'}, {kt:'sz',name:'Schwyz'}, {kt:'sg',name:'St. Gallen'}, {kt:'tg',name:'Thurgau'}, {kt:'ur',name:'Uri'}, {kt:'vs',name:'Wallis'}, {kt:'zg',name:'Zug'}, {kt:'zh',name:'Zürich'}];
+const LP_KANTONE = [
+  {kt:'v-fe', name:'Deutschschweizer Vorlage', ort:'Deutschschweizer Vorlage', lp:'Lehrplan 21'},
+  {kt:'ag', name:'Aargau', ort:'Kanton Aargau', lp:'AG-Lehrplan'},
+  {kt:'ar', name:'Appenzell Ausserrhoden', ort:'Kanton Appenzell Ausserrhoden', lp:'AR-Lehrplan'},
+  {kt:'ai', name:'Appenzell Innerrhoden', ort:'Kanton Appenzell Innerrhoden', lp:'AI-Lehrplan'},
+  {kt:'bs', name:'Basel-Stadt', ort:'Kanton Basel-Stadt', lp:'BS-Lehrplan'},
+  {kt:'be', name:'Bern', ort:'Kanton Bern', lp:'BE-Lehrplan'},
+  {kt:'fr', name:'Freiburg', ort:'Kanton Freiburg', lp:'FR-Lehrplan'},
+  {kt:'gl', name:'Glarus', ort:'Kanton Glarus', lp:'GL-Lehrplan'},
+  {kt:'lu', name:'Luzern', ort:'Kanton Luzern', lp:'LU-Lehrplan'},
+  {kt:'nw', name:'Nidwalden', ort:'Kanton Nidwalden', lp:'NW-Lehrplan'},
+  {kt:'ow', name:'Obwalden', ort:'Kanton Obwalden', lp:'OW-Lehrplan'},
+  {kt:'sh', name:'Schaffhausen', ort:'Kanton Schaffhausen', lp:'SH-Lehrplan'},
+  {kt:'sz', name:'Schwyz', ort:'Kanton Schwyz', lp:'SZ-Lehrplan'},
+  {kt:'sg', name:'St. Gallen', ort:'Kanton St. Gallen', lp:'SG-Lehrplan'},
+  {kt:'tg', name:'Thurgau', ort:'Kanton Thurgau', lp:'TG-Lehrplan'},
+  {kt:'ur', name:'Uri', ort:'Kanton Uri', lp:'UR-Lehrplan'},
+  {kt:'vs', name:'Wallis', ort:'Kanton Wallis', lp:'VS-Lehrplan'},
+  {kt:'zg', name:'Zug', ort:'Kanton Zug', lp:'ZG-Lehrplan'},
+  {kt:'zh', name:'Zürich', ort:'Kanton Zürich', lp:'ZH-Lehrplan'}
+];
 const LP_KANTON_KEY = 'ttg_lehrplan_kanton';
 let lpKanton = (function () {
   try {
@@ -5178,17 +5205,17 @@ let lpKanton = (function () {
   } catch (_error) {}
   return 'lu';
 })();
-function lpKantonName() {
-  const t = LP_KANTONE.find((k) => k.kt === lpKanton);
-  return t ? t.name : 'Luzern';
+function lpFassung() {
+  return LP_KANTONE.find((k) => k.kt === lpKanton) || LP_KANTONE[LP_KANTONE.length - 1];
 }
 // Ersetzt Host und Beschriftungen. Bewusst als Textersetzung, damit auch die
 // Zeichenketten im Detaildokument mitgehen, das als eigenes Dokument laeuft.
 function kantonisiere(text) {
+  const f = lpFassung();
   return String(text)
-    .split('lu.lehrplan.ch').join(lpKanton + '.lehrplan.ch')
-    .split('Kanton Luzern').join('Kanton ' + lpKantonName())
-    .split('LU-Lehrplan').join(lpKanton.toUpperCase() + '-Lehrplan');
+    .split('lu.lehrplan.ch').join(f.kt + '.lehrplan.ch')
+    .split('Kanton Luzern').join(f.ort)
+    .split('LU-Lehrplan').join(f.lp);
 }
 function buildDetailDocument() {
   return kantonisiere('<!DOCTYPE html><html lang="de-CH">' + DETAIL_HTML + '</html>');
@@ -5287,6 +5314,7 @@ function getCrossrefUrl(rawCode) {
   const code = normalizeCrossrefCode(rawCode);
   if (!code) return `https://${lpKanton}.lehrplan.ch`;
   return `https://${lpKanton}.lehrplan.ch/index.php?code=${encodeURIComponent(code)}`;
+
 }
 
 let cycleQvPreview = null;
